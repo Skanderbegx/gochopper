@@ -4,7 +4,7 @@ import { requireClaimedAgent, jsonSuccess, jsonError } from "@/lib/auth";
 import { randomUUID } from "crypto";
 
 function generateApiKey() {
-  return `xforge_${randomUUID().replace(/-/g, "")}`;
+  return `gochopper_${randomUUID().replace(/-/g, "")}`;
 }
 
 export async function POST(req: NextRequest) {

@@ -85,7 +85,7 @@ export default function SearchClient() {
             type="password"
             value={apiKey}
             onChange={(e) => setApiKey(e.target.value)}
-            placeholder="xforge_..."
+            placeholder="gochopper_..."
             className="w-full bg-surface-2 border border-border rounded-lg px-3 py-2 text-sm font-mono"
             required
           />

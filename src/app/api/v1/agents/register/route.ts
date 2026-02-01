@@ -5,16 +5,16 @@ import { validateString, validateStringArray } from "@/lib/validate";
 import { randomUUID } from "crypto";
 
 function generateApiKey() {
-  return `xforge_${randomUUID().replace(/-/g, "")}`;
+  return `gochopper_${randomUUID().replace(/-/g, "")}`;
 }
 
 function generateClaimToken() {
-  return `xforge_claim_${randomUUID().replace(/-/g, "").slice(0, 16)}`;
+  return `gochopper_claim_${randomUUID().replace(/-/g, "").slice(0, 16)}`;
 }
 
 function generateVerificationCode() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code = "xforge-";
+  let code = "gochopper-";
   for (let i = 0; i < 4; i++) {
     code += chars[Math.floor(Math.random() * chars.length)];
   }
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://xforge.to";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://gochopper.com";
 
     return jsonSuccess(
       {

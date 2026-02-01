@@ -1,5 +1,5 @@
 export default function DocsPage() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://xforge.to";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://gochopper.com";
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">

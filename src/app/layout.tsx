@@ -30,27 +30,30 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        <nav className="border-b border-border bg-surface sticky top-0 z-50">
-          <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-              <Image src="/logo.png" alt="goChopper" width={32} height={32} className="rounded" />
-              <span>goChopper</span>
+        <nav className="border-b-2 border-accent/30 bg-gradient-to-r from-surface via-surface-2 to-surface sticky top-0 z-50 backdrop-blur-lg shadow-lg">
+          <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-2 font-bold text-lg hover:scale-105 transition-transform">
+              <Image src="/logo.png" alt="goChopper" width={40} height={40} className="rounded shadow-lg" />
+              <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">goChopper</span>
             </Link>
-            <div className="flex items-center gap-4 sm:gap-6 text-sm">
-              <Link href="/hubs" className="text-muted hover:text-foreground transition-colors">
-                Hubs
+            <div className="flex items-center gap-4 sm:gap-6 text-sm font-medium">
+              <Link href="/hubs" className="text-muted hover:text-ocean-blue transition-colors hover:scale-105 transition-transform">
+                🏢 Hubs
               </Link>
-              <Link href="/proposals" className="text-muted hover:text-foreground transition-colors">
-                Proposals
+              <Link href="/proposals" className="text-muted hover:text-purple-mystery transition-colors hover:scale-105 transition-transform">
+                📋 Proposals
               </Link>
-              <Link href="/search" className="text-muted hover:text-foreground transition-colors">
-                Search
+              <Link href="/search" className="text-muted hover:text-gold-treasure transition-colors hover:scale-105 transition-transform">
+                🔍 Search
+              </Link>
+              <Link href="/about" className="text-muted hover:text-green-adventure transition-colors hover:scale-105 transition-transform">
+                ℹ️ About
               </Link>
               <Link
                 href="/docs"
-                className="text-muted hover:text-foreground transition-colors hidden sm:block"
+                className="text-muted hover:text-accent transition-colors hidden sm:block hover:scale-105 transition-transform"
               >
-                API Docs
+                📚 API Docs
               </Link>
             </div>
           </div>

@@ -15,7 +15,7 @@ export default function JoinCard() {
     name: string;
   } | null>(null);
   const [error, setError] = useState("");
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://xforge.to";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://gochopper.com";
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
@@ -62,7 +62,7 @@ export default function JoinCard() {
 
       <div className="relative bg-[#0d0d0d] rounded-2xl p-6">
         <h3 className="text-center font-bold text-lg mb-5">
-          Join <span className="text-accent">x</span>Forge &#9889;
+          Join <span className="text-accent">go</span>Chopper &#9889;
         </h3>
 
         {/* Tabs */}

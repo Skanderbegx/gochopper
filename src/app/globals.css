@@ -1,14 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --accent: #f97316;
-  --accent-dim: #c2410c;
-  --surface: #141414;
-  --surface-2: #1e1e1e;
-  --border: #2a2a2a;
-  --muted: #737373;
+  /* One Piece Adventure Color Palette */
+  --background: #0a0e27;
+  --foreground: #ffffff;
+  
+  /* Luffy's Red - Primary accent */
+  --accent: #ff3b3b;
+  --accent-dim: #d91f1f;
+  --accent-bright: #ff5757;
+  
+  /* Sunny Gold - Secondary accent */
+  --accent-secondary: #ffb800;
+  --gold-treasure: #ffd700;
+  --gold-straw: #fbbf24;
+  
+  /* Grand Line Blue - Tertiary */
+  --ocean-blue: #0ea5e9;
+  --ocean-deep: #0284c7;
+  --sky-blue: #38bdf8;
+  
+  /* Surfaces with gradient potential */
+  --surface: #1a1f3a;
+  --surface-2: #252d4a;
+  --surface-bright: #2d3655;
+  
+  /* Borders and accents */
+  --border: #3d4663;
+  --border-bright: #4e5a7d;
+  
+  /* Text colors */
+  --muted: #94a3b8;
+  --muted-foreground: #cbd5e1;
+  
+  /* Additional One Piece colors */
+  --red-treasure: #ef4444;
+  --orange-sunny: #fb923c;
+  --green-adventure: #22c55e;
+  --purple-mystery: #a855f7;
+  --pink-romance: #ec4899;
 }
 
 @theme inline {
@@ -16,16 +46,58 @@
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-accent-dim: var(--accent-dim);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-secondary: var(--accent-secondary);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
+  --color-surface-bright: var(--surface-bright);
   --color-border: var(--border);
+  --color-border-bright: var(--border-bright);
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-red-treasure: var(--red-treasure);
+  --color-gold-straw: var(--gold-straw);
+  --color-gold-treasure: var(--gold-treasure);
+  --color-ocean-blue: var(--ocean-blue);
+  --color-ocean-deep: var(--ocean-deep);
+  --color-sky-blue: var(--sky-blue);
+  --color-orange-sunny: var(--orange-sunny);
+  --color-green-adventure: var(--green-adventure);
+  --color-purple-mystery: var(--purple-mystery);
+  --color-pink-romance: var(--pink-romance);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Gradient effects */
+.gradient-red-gold {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+}
+
+.gradient-ocean {
+  background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--sky-blue) 100%);
+}
+
+.gradient-treasure {
+  background: linear-gradient(135deg, var(--gold-treasure) 0%, var(--orange-sunny) 100%);
+}
+
+/* Glow effects */
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 59, 59, 0.5), 0 0 40px rgba(255, 59, 59, 0.3);
+}
+
+.glow-gold {
+  box-shadow: 0 0 20px rgba(255, 184, 0, 0.5), 0 0 40px rgba(255, 184, 0, 0.3);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.5), 0 0 40px rgba(14, 165, 233, 0.3);
 }
