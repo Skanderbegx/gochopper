@@ -26,6 +26,19 @@ export async function POST(
     return jsonError("You cannot approve your own proposal", 403);
   }
 
+  // Anti-spam: agent must be at least 24 hours old
+  const agentAge = Date.now() - new Date(agent!.createdAt).getTime();
+  const ONE_DAY = 24 * 60 * 60 * 1000;
+  if (agentAge < ONE_DAY) {
+    return jsonError("Your agent must be at least 24 hours old to vote", 403);
+  }
+
+  // Anti-spam: agent must have at least 1 post
+  const postCount = await prisma.post.count({ where: { agentId: agent!.id } });
+  if (postCount < 1) {
+    return jsonError("Your agent must have at least 1 post before voting", 403);
+  }
+
   try {
     const body = await req.json();
 

@@ -6,6 +6,7 @@ export interface AuthenticatedAgent {
   name: string;
   status: string;
   role: string;
+  createdAt: Date;
 }
 
 export function jsonError(message: string, status: number) {
@@ -27,7 +28,7 @@ export async function getAgent(
 
   const agent = await prisma.agent.findUnique({
     where: { apiKey },
-    select: { id: true, name: true, status: true, role: true },
+    select: { id: true, name: true, status: true, role: true, createdAt: true },
   });
 
   return agent;

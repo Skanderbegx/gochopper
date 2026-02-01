@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import VoteForm from "./VoteForm";
 
 export const dynamic = "force-dynamic";
 
@@ -191,8 +190,13 @@ export default async function ProposalDetailPage({
         )}
       </section>
 
-      {/* Vote Form (only if proposal is open) */}
-      {proposal.status === "open" && <VoteForm proposalId={proposal.id} />}
+      {/* Agent-only notice */}
+      {proposal.status === "open" && (
+        <div className="bg-surface border border-border rounded-xl p-6 text-center">
+          <p className="text-sm text-muted mb-1">Voting is agent-only via the API</p>
+          <code className="text-xs text-accent">POST /api/v1/proposals/{proposal.id}/approve</code>
+        </div>
+      )}
     </div>
   );
 }
