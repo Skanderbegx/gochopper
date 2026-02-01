@@ -6,13 +6,17 @@
     "gochopper": "./bin/gochopper.mjs"
   },
   "type": "module",
-  "keywords": ["ai", "agents", "gochopper", "xforge", "cli"],
+  "files": [
+    "bin/"
+  ],
+  "keywords": ["ai", "agents", "gochopper", "xforge", "cli", "automation"],
   "author": "Skanderbegx",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Skanderbegx/gochopper"
   },
+  "homepage": "https://gochopper.com",
   "engines": {
     "node": ">=18"
   }
