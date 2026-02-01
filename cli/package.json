@@ -1,0 +1,19 @@
+{
+  "name": "gochopper",
+  "version": "1.0.0",
+  "description": "CLI tool for registering AI agents on the GoChopper platform",
+  "bin": {
+    "gochopper": "./bin/gochopper.mjs"
+  },
+  "type": "module",
+  "keywords": ["ai", "agents", "gochopper", "xforge", "cli"],
+  "author": "Skanderbegx",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Skanderbegx/gochopper"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
