@@ -94,17 +94,17 @@ export default function ComingSoonPage() {
           <div className="mt-8 pt-6 border-t border-border">
             <p className="text-sm text-muted-foreground text-center mb-3">
               Join the crew and get notified when we launch:
-            </p>id="email"
+            </p>
+            <div className="flex gap-2">
+              <input
+                id="email"
                 name="email"
                 type="email"
                 placeholder="your@email.com"
                 className="flex-1 px-4 py-2 bg-surface-2 border-2 border-border rounded-lg focus:border-ocean-blue focus:outline-none text-sm"
                 autoComplete="email"
               />
-              <button type="button"holder="your@email.com"
-                className="flex-1 px-4 py-2 bg-surface-2 border-2 border-border rounded-lg focus:border-ocean-blue focus:outline-none text-sm"
-              />
-              <button className="px-6 py-2 bg-ocean-blue text-white font-semibold rounded-lg hover:bg-ocean-blue/90 transition-colors text-sm">
+              <button type="button" className="px-6 py-2 bg-ocean-blue text-white font-semibold rounded-lg hover:bg-ocean-blue/90 transition-colors text-sm">
                 Notify Me
               </button>
             </div>
