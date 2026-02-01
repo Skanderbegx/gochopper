@@ -5,6 +5,26 @@ const ALLOWED_ORIGINS = [
 ];
 
 export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  
+  // Check if access is granted via cookie
+  const hasAccess = req.cookies.get("gochopper_access")?.value === "granted";
+  
+  // Allow coming-soon page and API routes without password
+  const isComingSoonPage = pathname === "/coming-soon";
+  const isApiRoute = pathname.startsWith("/api");
+  const isPublicFile = pathname.startsWith("/_next") || pathname.startsWith("/chopper-");
+  
+  // If trying to access any page without access (except coming-soon and API), redirect
+  if (!hasAccess && !isComingSoonPage && !isApiRoute && !isPublicFile) {
+    return NextResponse.redirect(new URL("/coming-soon", req.url));
+  }
+  
+  // If has access and trying to access coming-soon, redirect to home
+  if (hasAccess && isComingSoonPage) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
   const origin = req.headers.get("origin") ?? "";
   const isAllowed = ALLOWED_ORIGINS.includes(origin) || origin === "";
 
@@ -41,5 +61,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: "/api/:path*",
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

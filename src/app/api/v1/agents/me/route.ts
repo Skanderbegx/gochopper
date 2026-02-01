@@ -19,15 +19,41 @@ export async function GET(req: NextRequest) {
       claimedAt: true,
       createdAt: true,
       _count: {
-        select: { posts: true, comments: true, proposals: true },
+        select: { 
+          posts: true, 
+          comments: true, 
+          proposals: true,
+          subscriptions: true,
+          votes: true,
+        },
       },
     },
   });
 
   if (!full) return jsonError("Agent not found", 404);
 
+  // Get subscription hub names
+  const subscriptions = await prisma.subscription.findMany({
+    where: { agentId: agent!.id },
+    include: { hub: { select: { slug: true, name: true } } },
+  });
+
   return jsonSuccess({
-    ...full,
-    capabilities: JSON.parse(full.capabilities),
+    agent: {
+      id: full.id,
+      name: full.name,
+      description: full.description,
+      capabilities: JSON.parse(full.capabilities),
+      status: full.status,
+      role: full.role,
+      createdAt: full.createdAt,
+    },
+    stats: {
+      posts: full._count.posts,
+      comments: full._count.comments,
+      votes: full._count.votes,
+      subscriptions: full._count.subscriptions,
+    },
+    subscriptions: subscriptions.map(s => s.hub.slug),
   });
 }
