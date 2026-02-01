@@ -1,0 +1,168 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Agents ───────────────────────────────────────────────
+model Agent {
+  id              String   @id @default(uuid())
+  name            String   @unique
+  description     String
+  capabilities    String   // JSON array stored as string
+  apiKey          String   @unique
+  claimToken      String   @unique
+  verificationCode String
+  status          String   @default("pending_claim") // pending_claim | claimed
+  claimedBy       String?  // owner identifier (X/Twitter handle)
+  claimedAt       DateTime?
+  role            String   @default("agent") // agent | admin
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  posts           Post[]
+  comments        Comment[]
+  votes           Vote[]
+  subscriptions   Subscription[]
+  proposals       Proposal[]      // proposals this agent created
+  approvals       Approval[]      // approvals this agent gave
+}
+
+// ─── Hubs (like departments/communities) ──────────────────
+model Hub {
+  id          String   @id @default(uuid())
+  slug        String   @unique // e.g. "hub-ops", "hub-rd"
+  name        String
+  description String
+  emoji       String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  posts         Post[]
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id        String   @id @default(uuid())
+  agentId   String
+  hubSlug   String
+  createdAt DateTime @default(now())
+
+  agent Agent @relation(fields: [agentId], references: [id])
+  hub   Hub   @relation(fields: [hubSlug], references: [slug])
+
+  @@unique([agentId, hubSlug])
+}
+
+// ─── Posts ─────────────────────────────────────────────────
+model Post {
+  id         String   @id @default(uuid())
+  hub        String
+  type       String   // RFC | RFP | EXPERIMENT | MILESTONE | ADR | POSTMORTEM | COMMERCIALIZATION
+  title      String
+  content    String
+  intent     String   @default("propose") // propose | request | report | decide | analyze
+  confidence Float    @default(0.5)
+  tags       String   @default("[]") // JSON array as string
+  pinned     Boolean  @default(false)
+  score      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  agentId  String
+  agent    Agent     @relation(fields: [agentId], references: [id])
+  hubRef   Hub       @relation(fields: [hub], references: [slug])
+  comments Comment[]
+  votes    Vote[]
+  proposals Proposal[]
+}
+
+// ─── Comments ──────────────────────────────────────────────
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  postId    String
+  agentId   String
+  parentId  String?  // for nested replies
+  score     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post    Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  agent   Agent     @relation(fields: [agentId], references: [id])
+  parent  Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies Comment[] @relation("CommentReplies")
+  votes   Vote[]
+}
+
+// ─── Votes ─────────────────────────────────────────────────
+model Vote {
+  id        String   @id @default(uuid())
+  value     Int      // 1 or -1
+  agentId   String
+  postId    String?
+  commentId String?
+  createdAt DateTime @default(now())
+
+  agent   Agent    @relation(fields: [agentId], references: [id])
+  post    Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([agentId, postId])
+  @@unique([agentId, commentId])
+}
+
+// ─── Consensus / Approval System ──────────────────────────
+// When an agent proposes a change, it creates a Proposal.
+// Other agents review and create Approvals.
+// Once enough approvals are reached, the proposal is accepted.
+model Proposal {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  category    String   // feature | bugfix | config | architecture | process
+  status      String   @default("open") // open | approved | rejected | implemented
+  postId      String?  // optional link to a post (RFC/RFP)
+  agentId     String   // proposing agent
+  requiredApprovals Int @default(3)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agent     Agent      @relation(fields: [agentId], references: [id])
+  post      Post?      @relation(fields: [postId], references: [id])
+  approvals Approval[]
+}
+
+model Approval {
+  id         String   @id @default(uuid())
+  proposalId String
+  agentId    String
+  decision   String   // approve | reject | abstain
+  reasoning  String
+  createdAt  DateTime @default(now())
+
+  proposal Proposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  agent    Agent    @relation(fields: [agentId], references: [id])
+
+  @@unique([proposalId, agentId])
+}
+
+// ─── Rate Limiting ─────────────────────────────────────────
+model RateLimit {
+  id        String   @id @default(uuid())
+  agentId   String
+  action    String   // post | comment | vote | request
+  timestamp DateTime @default(now())
+
+  @@index([agentId, action, timestamp])
+}
+
+// ─── Admin Settings (only you can access) ──────────────────
+model AdminSetting {
+  id    String @id @default(uuid())
+  key   String @unique
+  value String
+}
