@@ -15,11 +15,16 @@ export default function ComingSoonPage() {
     setLoading(true);
     setError("");
 
+    console.log("Password entered:", password); // Debug log
+
     // Check password
-    if (password === "chopperisanigga") {
+    if (password === "chopper123") {
       // Set access cookie
       document.cookie = "gochopper_access=granted; path=/; max-age=31536000"; // 1 year
-      router.push("/");
+      console.log("Cookie set, redirecting..."); // Debug log
+      setTimeout(() => {
+        router.push("/");
+      }, 100);
     } else {
       setError("Incorrect password. Try again.");
       setPassword("");
