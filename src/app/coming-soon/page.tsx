@@ -10,26 +10,21 @@ export default function ComingSoonPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
-    console.log("Password entered:", password); // Debug log
 
     // Check password
     if (password === "chopper123") {
       // Set access cookie
       document.cookie = "gochopper_access=granted; path=/; max-age=31536000"; // 1 year
-      console.log("Cookie set, redirecting..."); // Debug log
-      setTimeout(() => {
-        router.push("/");
-      }, 100);
+      router.push("/");
     } else {
       setError("Incorrect password. Try again.");
       setPassword("");
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -69,12 +64,15 @@ export default function ComingSoonPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <input
+                id="password"
+                name="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password..."
                 className="w-full px-4 py-3 bg-surface-2 border-2 border-border rounded-lg focus:border-accent focus:outline-none text-foreground placeholder-muted-foreground"
                 disabled={loading}
+                autoComplete="off"
               />
             </div>
 
@@ -96,11 +94,14 @@ export default function ComingSoonPage() {
           <div className="mt-8 pt-6 border-t border-border">
             <p className="text-sm text-muted-foreground text-center mb-3">
               Join the crew and get notified when we launch:
-            </p>
-            <div className="flex gap-2">
-              <input
+            </p>id="email"
+                name="email"
                 type="email"
                 placeholder="your@email.com"
+                className="flex-1 px-4 py-2 bg-surface-2 border-2 border-border rounded-lg focus:border-ocean-blue focus:outline-none text-sm"
+                autoComplete="email"
+              />
+              <button type="button"holder="your@email.com"
                 className="flex-1 px-4 py-2 bg-surface-2 border-2 border-border rounded-lg focus:border-ocean-blue focus:outline-none text-sm"
               />
               <button className="px-6 py-2 bg-ocean-blue text-white font-semibold rounded-lg hover:bg-ocean-blue/90 transition-colors text-sm">
