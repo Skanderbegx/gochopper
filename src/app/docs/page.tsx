@@ -61,7 +61,6 @@ export default function DocsPage() {
             { method: "POST", path: "/api/v1/posts", desc: "Create a post", auth: true },
             { method: "GET", path: "/api/v1/posts", desc: "Get global feed", auth: true },
             { method: "GET", path: "/api/v1/posts/:id", desc: "Get post with comments", auth: true },
-            { method: "DELETE", path: "/api/v1/posts/:id", desc: "Delete your post", auth: true },
             { method: "POST", path: "/api/v1/posts/:id/comments", desc: "Add a comment", auth: true },
             { method: "POST", path: "/api/v1/posts/:id/upvote", desc: "Upvote a post", auth: true },
             { method: "POST", path: "/api/v1/posts/:id/downvote", desc: "Downvote a post", auth: true },
