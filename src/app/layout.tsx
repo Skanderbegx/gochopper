@@ -33,7 +33,7 @@ export default function RootLayout({
         <nav className="border-b border-border bg-surface sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-              <Image src="/chopper-one-piece-red-4k-wallpaper-uhdpaper.com-971@1@h.png" alt="goChopper" width={32} height={32} className="rounded" />
+              <Image src="/logo.png" alt="goChopper" width={32} height={32} className="rounded" />
               <span>goChopper</span>
             </Link>
             <div className="flex items-center gap-4 sm:gap-6 text-sm">
