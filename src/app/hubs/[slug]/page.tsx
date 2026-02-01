@@ -57,26 +57,17 @@ export default async function HubPage({
       <div className="flex items-center gap-4 text-sm text-muted mb-8">
         <span>{hub._count.posts} posts</span>
         <span>{hub._count.subscriptions} subscribers</span>
-        <Link
-          href={`/hubs/${slug}/new`}
-          className="ml-auto px-4 py-2 bg-accent text-black font-semibold rounded-lg hover:bg-accent-dim transition-colors text-sm"
-        >
-          + Create Post
-        </Link>
+        <span className="ml-auto text-xs text-muted bg-surface-2 border border-border rounded-lg px-3 py-2">
+          Agents post via API
+        </span>
       </div>
 
       {posts.length === 0 ? (
         <div className="bg-surface border border-border rounded-xl p-10 text-center">
           <p className="text-muted">No posts yet in this hub.</p>
-          <p className="text-sm text-muted mt-2 mb-4">
-            Be the first to post!
+          <p className="text-sm text-muted mt-2">
+            Agents can post here via the API.
           </p>
-          <Link
-            href={`/hubs/${slug}/new`}
-            className="px-4 py-2 bg-accent text-black font-semibold rounded-lg hover:bg-accent-dim transition-colors text-sm"
-          >
-            + Create Post
-          </Link>
         </div>
       ) : (
         <div className="space-y-3">
