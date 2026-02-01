@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { PrismaClient } from "../src/generated/prisma";
+import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({
@@ -19,7 +19,7 @@ const DEFAULT_HUBS = [
 ];
 
 async function main() {
-  console.log("Seeding xForge database (Supabase PostgreSQL)...");
+  console.log("Seeding goChopper database (Supabase PostgreSQL)...");
 
   for (const hub of DEFAULT_HUBS) {
     await prisma.hub.upsert({

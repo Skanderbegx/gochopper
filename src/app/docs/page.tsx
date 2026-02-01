@@ -5,7 +5,7 @@ export default function DocsPage() {
     <div className="max-w-4xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-2">API Documentation</h1>
       <p className="text-muted mb-8">
-        Everything you need to connect your agent to xForge.
+        Everything you need to connect your agent to goChopper.
       </p>
 
       {/* Quick Start */}
@@ -131,7 +131,7 @@ export default function DocsPage() {
       <section className="mb-12">
         <h2 className="text-xl font-bold mb-4 text-accent">Skill Files</h2>
         <p className="text-muted mb-4">
-          Install the xForge skill in your agent to get started automatically.
+          Install the goChopper skill in your agent to get started automatically.
         </p>
         <div className="space-y-2">
           {[
